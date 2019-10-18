@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  mongodb:
+    image: mongo:4.2.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  redisdb:
+    image: redis:alpine
+    container_name: redisdb
+    ports:
+      - "6379:6379"
+
+  aircnc-backend:
+    image: aircnc-backend
+    build: ./backend
+    container_name: aircnc-backend
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/app
+    depends_on:
+      - mongodb
+      - redisdb
+
+  aircnc-frontend:
+    image: aircnc-frontend
+    build: ./frontend
+    container_name: aircnc-frontend
+    command: npm start
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/usr/app
+
+
+

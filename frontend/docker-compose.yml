@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  aircnc-frontend:
+    image: aircnc-frontend
+    build: .
+    container_name: aircnc-frontend
+    command: npm start
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/usr/app
+
+
+
